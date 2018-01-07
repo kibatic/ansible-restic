@@ -9,6 +9,7 @@
   roles:
     - ansible-restic
   vars:
+    ci_testing: True
     restic_user: restic
     restic_group: restic
     restic_repos:
