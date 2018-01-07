@@ -9,7 +9,7 @@
   register: cronfiles
 
 - name: Initialize restic repositories
-  command: "RESTIC_PASSWORD={{ item.password }} {{ restic_install_path }}/restic -r {{ item.url }} init"
+  shell: "RESTIC_PASSWORD={{ item.password }} {{ restic_install_path }}/restic -r {{ item.url }} init"
   no_log: true
   with_items: "{{ restic_repos }}"
   when:
