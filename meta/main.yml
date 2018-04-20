@@ -1,6 +1,6 @@
 ---
 galaxy_info:
-  author: Pawel Krupa (paulfantom), donat-b
+  author: Pawel Krupa (kibatic), donat-b
   description: Fast, secure, efficient backup program
   license: MIT
   min_ansible_version: 2.2
