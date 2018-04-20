@@ -1,4 +1,13 @@
 ---
+- name: Deploy backup script
+  template:
+    src: "{{ restic_script_template|default('backup.sh.j2') }}"
+    dest: '/opt/restic-backup-{{ item.0.name }}-{{ item.1.name }}.sh'
+    mode: '700'
+  with_subelements:
+    - '{{ restic_repos }}'
+    - jobs
+
 - name: Deploy cron script
   template:
     src: 'restic.cron.j2'

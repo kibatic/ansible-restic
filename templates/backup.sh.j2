@@ -1,0 +1,3 @@
+#!/bin/bash
+restic snapshots || restic init
+restic backup {{ item.1.path }}
