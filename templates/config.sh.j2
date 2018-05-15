@@ -1,0 +1,9 @@
+#jinja2: lstrip_blocks: "True"
+#!/bin/bash
+# {{ ansible_managed }}
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin:{{ restic_install_path }}
+RESTIC_REPOSITORY="{{ item.url }}"
+RESTIC_PASSWORD="{{ item.password }}"
+{% for k,v in item.remote_credentials.items() %}
+{{ k | upper }}={{ v }}
+{% endfor %}
