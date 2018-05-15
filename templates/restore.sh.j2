@@ -1,0 +1,7 @@
+#!/bin/bash
+. /opt/restic-config-{{ item.0.name }}.sh
+
+LATEST_BACKUP_ID="$(restic snapshots | awk '{ print $1 }' | grep '[a-z0-9]\{8\}' | tail -1)"
+TMP_RESTORE_PATH='/tmp/backup-restore/{{ item.1.path }}'
+
+restic restore $LATEST_BACKUP_ID --target $TMP_RESTORE_PATH
