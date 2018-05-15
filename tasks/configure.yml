@@ -1,7 +1,7 @@
 ---
 - name: Deploy backup script
   template:
-    src: "{{ restic_script_template|default('backup.sh.j2') }}"
+    src: "{{ restic_backup_script_template|default('backup.sh.j2') }}"
     dest: '/opt/restic-backup-{{ item.0.name }}-{{ item.1.name }}.sh'
     mode: '700'
   with_subelements:
@@ -15,3 +15,21 @@
     mode: '0640'
   no_log: true
   with_items: '{{ restic_repos }}'
+
+- name: Deploy config script
+  template:
+    src: 'config.sh.j2'
+    dest: '/opt/restic-config-{{ item.name }}.sh'
+    mode: '700'
+  no_log: true
+  with_items: '{{ restic_repos }}'
+
+- name: Deploy restore script
+  template:
+    src: "{{ restic_restore_script_template|default('restore.sh.j2') }}"
+    dest: '/opt/restic-restore-{{ item.0.name }}-{{ item.1.name }}.sh'
+    mode: '700'
+  no_log: true
+  with_subelements:
+    - '{{ restic_repos }}'
+    - jobs
