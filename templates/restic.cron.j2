@@ -8,7 +8,7 @@ RESTIC_PASSWORD="{{ item.password }}"
 {% endfor %}
 
 # Apply retention policy (if specified) and check repository
-{{ item.retention_time | default('17 3 * * *') }} {{ restic_user }}{% if item.retention is defined %} restic forget --prune 
+{{ item.retention_time | default('17 3 * * *') }} {{ restic_user }}{% if item.retention is defined %} restic -q forget --prune
 {%- if item.retention.last is defined %} --keep-last {{ item.retention.last }}{% endif -%}
 {% if item.retention.hourly is defined %} --keep-hourly {{ item.retention.hourly }}{% endif -%}
 {% if item.retention.daily is defined %} --keep-daily {{ item.retention.daily }}{% endif -%}
@@ -16,7 +16,7 @@ RESTIC_PASSWORD="{{ item.password }}"
 {% if item.retention.monthly is defined %} --keep-monthly {{ item.retention.monthly }}{% endif -%}
 {% if item.retention.yearly is defined %} --keep-yearly {{ item.retention.yearly }}{% endif -%}
 {% if item.retention.tags is defined %} --keep-tag {% for tag in item.retention.tags %}{{ tag }}{% if not loop.last %},{% endif %}{% endfor %}{% endif -%}
-;{% endif %} restic check
+;{% endif %} restic -q check
 
 # Do an actual backup
 {% for job in item.jobs %}
